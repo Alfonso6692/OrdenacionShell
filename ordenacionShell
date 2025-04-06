@@ -1,0 +1,43 @@
+package ordenacionshell; // Define el paquete en el que se encuentra la clase
+
+// Clase que implementa el algoritmo de ordenación Shell
+public class OrdenacionShell {
+
+    // Método que implementa el algoritmo de ordenación Shell
+    public static void ordenacionShell(int[] a) {
+        int intervalo, i, j, k;
+        int n = a.length; // Obtiene la longitud del array
+
+        intervalo = n / 2; // Se inicia el intervalo en la mitad del tamaño del array
+        while (intervalo > 0) { // Se repite hasta que el intervalo sea 0
+            for (i = intervalo; i < n; i++) { // Recorre los elementos desde "intervalo" hasta el final
+                j = i - intervalo; // Calcula la posición anterior según el intervalo
+                while (j >= 0) { // Verifica que "j" esté dentro del rango del array
+                    k = j + intervalo; // Define el índice del elemento a comparar
+                    if (a[j] <= a[k]) { 
+                        break; // Si el elemento está en orden, no se hacen más intercambios
+                    } else {
+                        intercambiar(a, j, k); // Intercambia los elementos si están desordenados
+                        j -= intervalo; // Retrocede en el array según el intervalo
+                    }
+                }
+            }
+            intervalo /= 2; // Reduce el intervalo a la mitad en cada iteración
+        }
+    }
+
+    // Método auxiliar para intercambiar dos elementos en el array
+    private static void intercambiar(int[] a, int i, int j) {
+        int temp = a[i]; // Guarda temporalmente el valor de a[i]
+        a[i] = a[j]; // Asigna el valor de a[j] en a[i]
+        a[j] = temp; // Asigna el valor temporal en a[j]
+    }
+
+    // Método principal para probar el algoritmo
+    public static void main(String[] args) {
+        int[] a = {9, 8, 3, 7, 5, 6, 4, 1}; // Array de prueba
+        System.out.println("Antes de ordenar: " + java.util.Arrays.toString(a)); // Imprime el array antes de ordenar
+        ordenacionShell(a); // Llama al método de ordenación Shell
+        System.out.println("Después de ordenar: " + java.util.Arrays.toString(a)); // Imprime el array después de ordenar
+    }
+}
